@@ -20,7 +20,7 @@ def main():
     args = create_argparser().parse_args()
 
     dist_util.setup_dist()
-    logger.configure()
+    logger.configure(dir=args.storage_dir)
 
     logger.log("creating model and diffusion...")
     model, diffusion = create_model_and_diffusion(
@@ -62,6 +62,7 @@ def create_argparser():
     defaults = dict(
         data_dir="",
         images_id_file="",
+        storage_dir="",
         schedule_sampler="uniform",
         lr=1e-4,
         weight_decay=0.0,

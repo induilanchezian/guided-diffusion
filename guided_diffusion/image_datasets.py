@@ -41,6 +41,7 @@ def load_data(
     :param deterministic: if True, yield results in a deterministic order.
     :param random_crop: if True, randomly crop the images for augmentation.
     :param random_flip: if True, randomly flip the images for augmentation.
+    :param random_rotate: if True, randomly rotate the images for augmentation.
     """
     if not data_dir and not images_id_file:
         raise ValueError("unspecified data directory")
