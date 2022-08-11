@@ -32,6 +32,7 @@ def main():
     logger.log("creating data loader...")
     data = load_data(
         data_dir=args.data_dir,
+        images_id_file=args.images_id_file,
         batch_size=args.batch_size,
         image_size=args.image_size,
         class_cond=args.class_cond,
@@ -60,6 +61,7 @@ def main():
 def create_argparser():
     defaults = dict(
         data_dir="",
+        images_id_file="",
         schedule_sampler="uniform",
         lr=1e-4,
         weight_decay=0.0,

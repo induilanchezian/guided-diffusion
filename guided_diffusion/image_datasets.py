@@ -5,18 +5,24 @@ from PIL import Image
 import blobfile as bf
 from mpi4py import MPI
 import numpy as np
+import pandas as pd
 from torch.utils.data import DataLoader, Dataset
+from .batch_samplers import BalancedBatchSampler
+from . import logger
 
 
 def load_data(
     *,
     data_dir,
+    images_id_file,
     batch_size,
     image_size,
     class_cond=False,
     deterministic=False,
     random_crop=False,
     random_flip=True,
+    random_rotate=True,
+    balance=True,
 ):
     """
     For a dataset, create a generator over (images, kwargs) pairs.
@@ -36,9 +42,25 @@ def load_data(
     :param random_crop: if True, randomly crop the images for augmentation.
     :param random_flip: if True, randomly flip the images for augmentation.
     """
-    if not data_dir:
+    if not data_dir and not images_id_file:
         raise ValueError("unspecified data directory")
-    all_files = _list_image_files_recursively(data_dir)
+    if data_dir:
+        all_files = _list_image_files_recursively(data_dir)
+    elif images_id_file:
+        if 'csv' in images_id_file:
+            data_dir = '/gpfs01/berens/data/data/eyepacs/data_processed/images/'
+            df = pd.read_csv(images_id_file, low_memory='False')
+            good_qual_desc = ['Good', 'Excellent']
+            df = df[df['session_image_quality'].isin(good_qual_desc)]
+            df =df[~df['diagnosis_image_dr_level'].isna()]
+            logger.log(f'Number of images: {df.shape[0]}')
+            all_files = df['image_path']
+            all_files = all_files.apply(lambda x: data_dir + x)
+            all_files = all_files.tolist()
+            labels = df['diagnosis_image_dr_level'].to_list()
+            labels = [x==0 for x in labels]
+        else:
+            all_files = pickle.load(images_id_file)
     classes = None
     if class_cond:
         # Assume classes are the first part of the filename,
@@ -54,15 +76,25 @@ def load_data(
         num_shards=MPI.COMM_WORLD.Get_size(),
         random_crop=random_crop,
         random_flip=random_flip,
+        random_rotate=random_rotate
     )
+    if balance:
+        sampler = BalancedBatchSampler(dataset, labels=labels)
+        shuffle = False
+    else:
+        sampler = None
+        shuffle = True
     if deterministic:
         loader = DataLoader(
-            dataset, batch_size=batch_size, shuffle=False, num_workers=1, drop_last=True
+            dataset, batch_size=batch_size, shuffle=shuffle, num_workers=1, drop_last=True,
+            sampler=sampler
         )
     else:
         loader = DataLoader(
-            dataset, batch_size=batch_size, shuffle=True, num_workers=1, drop_last=True
+            dataset, batch_size=batch_size, shuffle=shuffle, num_workers=1, drop_last=True,
+            sampler=sampler
         )
+
     while True:
         yield from loader
 
@@ -89,6 +121,7 @@ class ImageDataset(Dataset):
         num_shards=1,
         random_crop=False,
         random_flip=True,
+        random_rotate=False
     ):
         super().__init__()
         self.resolution = resolution
@@ -96,6 +129,7 @@ class ImageDataset(Dataset):
         self.local_classes = None if classes is None else classes[shard:][::num_shards]
         self.random_crop = random_crop
         self.random_flip = random_flip
+        self.random_rotate = random_rotate
 
     def __len__(self):
         return len(self.local_images)
@@ -114,6 +148,11 @@ class ImageDataset(Dataset):
 
         if self.random_flip and random.random() < 0.5:
             arr = arr[:, ::-1]
+
+        if self.random_rotate and random.random() < 0.5:
+            pil_image = Image.fromarray(arr)
+            rotated_image = random_rotate_arr(pil_image, -15, 15)
+            arr = np.asarray(rotated_image)
 
         arr = arr.astype(np.float32) / 127.5 - 1
 
@@ -165,3 +204,8 @@ def random_crop_arr(pil_image, image_size, min_crop_frac=0.8, max_crop_frac=1.0)
     crop_y = random.randrange(arr.shape[0] - image_size + 1)
     crop_x = random.randrange(arr.shape[1] - image_size + 1)
     return arr[crop_y : crop_y + image_size, crop_x : crop_x + image_size]
+
+def random_rotate_arr(image, min_angle, max_angle):
+    random_angle = random.randrange(min_angle, max_angle)
+    rotated_img = image.rotate(random_angle)
+    return rotated_img
