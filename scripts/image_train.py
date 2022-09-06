@@ -15,6 +15,10 @@ from guided_diffusion.script_util import (
 )
 from guided_diffusion.train_util import TrainLoop
 
+import os
+
+#print(os.environ['LD_LIBRARY_PATH'])
+
 
 def main():
     args = create_argparser().parse_args()

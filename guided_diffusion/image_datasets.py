@@ -3,6 +3,9 @@ import random
 
 from PIL import Image
 import blobfile as bf
+import mpi4py
+mpi4py.rc.thread_level="single"
+
 from mpi4py import MPI
 import numpy as np
 import pandas as pd
@@ -49,7 +52,7 @@ def load_data(
         all_files = _list_image_files_recursively(data_dir)
     elif images_id_file:
         if 'csv' in images_id_file:
-            data_dir = '/gpfs01/berens/data/data/eyepacs/data_processed/images/'
+            data_dir = '/mnt/qb/eyepacs/data_processed/images/'
             df = pd.read_csv(images_id_file, low_memory='False')
             good_qual_desc = ['Good', 'Excellent']
             df = df[df['session_image_quality'].isin(good_qual_desc)]
