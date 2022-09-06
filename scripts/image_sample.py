@@ -49,6 +49,7 @@ def main():
     logger.log("sampling...")
     all_images = []
     all_labels = []
+    sample_num = 0
     while len(all_images) * args.batch_size < args.num_samples:
         model_kwargs = {}
         if args.class_cond:
