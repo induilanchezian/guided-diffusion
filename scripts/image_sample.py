@@ -63,7 +63,15 @@ def main():
 
         gathered_samples = [th.zeros_like(sample) for _ in range(dist.get_world_size())]
         dist.all_gather(gathered_samples, sample)  # gather not supported with NCCL
-        all_images.extend([sample.cpu().numpy() for sample in gathered_samples])
+        # all_images.extend([sample.cpu().numpy() for sample in gathered_samples])
+        curr_samples = [sample.cpu().numpy() for sample in gathered_samples]
+        all_images.extend(curr_samples)
+
+        for i in np.arange(curr_samples[0].shape[0]):
+            sample_num += 1
+            img = Image.fromarray(curr_samples[0][i, :, :, :])
+            img.save(f'{args.savepath}{sample_num}.png', dpi=(256, 256))
+
         if args.class_cond:
             gathered_labels = [
                 th.zeros_like(classes) for _ in range(dist.get_world_size())
@@ -97,6 +105,7 @@ def create_argparser():
         batch_size=16,
         use_ddim=False,
         model_path="",
+        savepath="",
     )
     defaults.update(model_and_diffusion_defaults())
     parser = argparse.ArgumentParser()
