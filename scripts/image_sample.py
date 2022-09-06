@@ -8,6 +8,7 @@ import os
 
 import numpy as np
 import torch as th
+from PIL import Image
 import torch.distributed as dist
 
 from guided_diffusion import dist_util, logger
