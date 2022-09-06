@@ -38,6 +38,14 @@ def main():
         model.convert_to_fp16()
     model.eval()
 
+    logger.log("Creating dir to save images...")
+    if not os.path.exists(args.savepath):
+        try:
+            os.makedirs(args.savepath, exist_ok=True)
+            logger.log(f"Directory {args.savepath} created successfully")
+        except OSError as error:
+            logger.log(f"Directory {args.savepath} can not be created")
+
     logger.log("sampling...")
     all_images = []
     all_labels = []
