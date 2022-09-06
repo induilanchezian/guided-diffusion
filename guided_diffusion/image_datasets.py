@@ -62,7 +62,7 @@ def load_data(
             all_files = all_files.apply(lambda x: data_dir + x)
             all_files = all_files.tolist()
             labels = df['diagnosis_image_dr_level'].to_list()
-            labels = [x==0 for x in labels]
+            labels = [int(x>0) for x in labels]
         else:
             all_files = pickle.load(images_id_file)
     classes = None
