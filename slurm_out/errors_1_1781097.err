@@ -1,0 +1,2 @@
+scripts/image_train.py:90: DtypeWarning: Columns (16,41,42,49,50) have mixed types.Specify dtype option on import or set low_memory=False.
+  main()

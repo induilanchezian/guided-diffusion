@@ -1,0 +1,15 @@
+Traceback (most recent call last):
+  File "scripts/image_train.py", line 7, in <module>
+    from guided_diffusion import dist_util, logger
+ImportError: No module named guided_diffusion
+--------------------------------------------------------------------------
+Primary job  terminated normally, but 1 process returned
+a non-zero exit code. Per user-direction, the job has been aborted.
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpiexec detected that one or more processes exited with non-zero status, thus causing
+the job to be terminated. The first process to do so was:
+
+  Process name: [[45165,1],0]
+  Exit code:    1
+--------------------------------------------------------------------------
