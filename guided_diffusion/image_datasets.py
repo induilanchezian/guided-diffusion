@@ -53,7 +53,7 @@ def load_data(
     elif images_id_file:
         if 'csv' in images_id_file:
             data_dir = '/mnt/qb/eyepacs/data_processed/images/'
-            df = pd.read_csv(images_id_file, low_memory='False')
+            df = pd.read_csv(images_id_file, low_memory=False)
             good_qual_desc = ['Good', 'Excellent']
             df = df[df['session_image_quality'].isin(good_qual_desc)]
             df =df[~df['diagnosis_image_dr_level'].isna()]

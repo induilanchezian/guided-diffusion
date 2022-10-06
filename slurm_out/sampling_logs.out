@@ -1,0 +1,287 @@
+JobId=1897311 JobName=run_sampling.sbatch
+   UserId=iilanchezian63(4135) GroupId=berens(4008) MCS_label=N/A
+   Priority=61200 Nice=0 Account=berens QOS=normal
+   JobState=RUNNING Reason=None Dependency=(null)
+   Requeue=1 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0
+   RunTime=00:00:01 TimeLimit=3-00:00:00 TimeMin=N/A
+   SubmitTime=2022-10-04T14:28:07 EligibleTime=2022-10-04T14:28:07
+   AccrueTime=2022-10-04T14:28:08
+   StartTime=2022-10-04T14:28:08 EndTime=2022-10-07T14:28:08 Deadline=N/A
+   PreemptEligibleTime=2022-10-04T14:29:08 PreemptTime=None
+   SuspendTime=None SecsPreSuspend=0 LastSchedEval=2022-10-04T14:28:08
+   Partition=gpu-v100 AllocNode:Sid=bg-slurmb-login1:29905
+   ReqNodeList=(null) ExcNodeList=(null)
+   NodeList=slurm-v100-2
+   BatchHost=slurm-v100-2
+   NumNodes=1 NumCPUs=8 NumTasks=1 CPUs/Task=8 ReqB:S:C:T=0:0:*:*
+   TRES=cpu=8,mem=32G,node=1,billing=7,gres/gpu=1
+   Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=*
+   MinCPUsNode=8 MinMemoryNode=32G MinTmpDiskNode=0
+   Features=(null) DelayBoot=00:00:00
+   OverSubscribe=OK Contiguous=0 Licenses=(null) Network=(null)
+   Command=/mnt/qb/work/berens/iilanchezian63/projects/guided-diffusion/run_sampling.sbatch
+   WorkDir=/mnt/qb/work/berens/iilanchezian63/projects/guided-diffusion
+   StdErr=/mnt/qb/work/berens/iilanchezian63/projects/guided-diffusion/slurm_out/sampling_errors.err
+   StdIn=/dev/null
+   StdOut=/mnt/qb/work/berens/iilanchezian63/projects/guided-diffusion/slurm_out/sampling_logs.out
+   Power=
+   TresPerNode=gpu:1
+   NtasksPerTRES:0
+
+[1664886518.600182] [slurm-v100-2:17222:0]            sys.c:618  UCX  ERROR shmget(size=2097152 flags=0xfb0) for mm_recv_desc failed: Operation not permitted, please check shared memory limits by 'ipcs -l'
+Logging to /mnt/qb/berens/users/iilanchezian63/diffusion_model_samples_no_rotate_5_class_balancing_only_train/
+creating model and diffusion...
+Creating dir to save images...
+sampling...
+created 4 samples
+created 8 samples
+created 12 samples
+created 16 samples
+created 20 samples
+created 24 samples
+created 28 samples
+created 32 samples
+created 36 samples
+created 40 samples
+created 44 samples
+created 48 samples
+created 52 samples
+created 56 samples
+created 60 samples
+created 64 samples
+created 68 samples
+created 72 samples
+created 76 samples
+created 80 samples
+created 84 samples
+created 88 samples
+created 92 samples
+created 96 samples
+created 100 samples
+created 104 samples
+created 108 samples
+created 112 samples
+created 116 samples
+created 120 samples
+created 124 samples
+created 128 samples
+created 132 samples
+created 136 samples
+created 140 samples
+created 144 samples
+created 148 samples
+created 152 samples
+created 156 samples
+created 160 samples
+created 164 samples
+created 168 samples
+created 172 samples
+created 176 samples
+created 180 samples
+created 184 samples
+created 188 samples
+created 192 samples
+created 196 samples
+created 200 samples
+created 204 samples
+created 208 samples
+created 212 samples
+created 216 samples
+created 220 samples
+created 224 samples
+created 228 samples
+created 232 samples
+created 236 samples
+created 240 samples
+created 244 samples
+created 248 samples
+created 252 samples
+created 256 samples
+created 260 samples
+created 264 samples
+created 268 samples
+created 272 samples
+created 276 samples
+created 280 samples
+created 284 samples
+created 288 samples
+created 292 samples
+created 296 samples
+created 300 samples
+created 304 samples
+created 308 samples
+created 312 samples
+created 316 samples
+created 320 samples
+created 324 samples
+created 328 samples
+created 332 samples
+created 336 samples
+created 340 samples
+created 344 samples
+created 348 samples
+created 352 samples
+created 356 samples
+created 360 samples
+created 364 samples
+created 368 samples
+created 372 samples
+created 376 samples
+created 380 samples
+created 384 samples
+created 388 samples
+created 392 samples
+created 396 samples
+created 400 samples
+created 404 samples
+created 408 samples
+created 412 samples
+created 416 samples
+created 420 samples
+created 424 samples
+created 428 samples
+created 432 samples
+created 436 samples
+created 440 samples
+created 444 samples
+created 448 samples
+created 452 samples
+created 456 samples
+created 460 samples
+created 464 samples
+created 468 samples
+created 472 samples
+created 476 samples
+created 480 samples
+created 484 samples
+created 488 samples
+created 492 samples
+created 496 samples
+created 500 samples
+created 504 samples
+created 508 samples
+created 512 samples
+created 516 samples
+created 520 samples
+created 524 samples
+created 528 samples
+created 532 samples
+created 536 samples
+created 540 samples
+created 544 samples
+created 548 samples
+created 552 samples
+created 556 samples
+created 560 samples
+created 564 samples
+created 568 samples
+created 572 samples
+created 576 samples
+created 580 samples
+created 584 samples
+created 588 samples
+created 592 samples
+created 596 samples
+created 600 samples
+created 604 samples
+created 608 samples
+created 612 samples
+created 616 samples
+created 620 samples
+created 624 samples
+created 628 samples
+created 632 samples
+created 636 samples
+created 640 samples
+created 644 samples
+created 648 samples
+created 652 samples
+created 656 samples
+created 660 samples
+created 664 samples
+created 668 samples
+created 672 samples
+created 676 samples
+created 680 samples
+created 684 samples
+created 688 samples
+created 692 samples
+created 696 samples
+created 700 samples
+created 704 samples
+created 708 samples
+created 712 samples
+created 716 samples
+created 720 samples
+created 724 samples
+created 728 samples
+created 732 samples
+created 736 samples
+created 740 samples
+created 744 samples
+created 748 samples
+created 752 samples
+created 756 samples
+created 760 samples
+created 764 samples
+created 768 samples
+created 772 samples
+created 776 samples
+created 780 samples
+created 784 samples
+created 788 samples
+created 792 samples
+created 796 samples
+created 800 samples
+created 804 samples
+created 808 samples
+created 812 samples
+created 816 samples
+created 820 samples
+created 824 samples
+created 828 samples
+created 832 samples
+created 836 samples
+created 840 samples
+created 844 samples
+created 848 samples
+created 852 samples
+created 856 samples
+created 860 samples
+created 864 samples
+created 868 samples
+created 872 samples
+created 876 samples
+created 880 samples
+created 884 samples
+created 888 samples
+created 892 samples
+created 896 samples
+created 900 samples
+created 904 samples
+created 908 samples
+created 912 samples
+created 916 samples
+created 920 samples
+created 924 samples
+created 928 samples
+created 932 samples
+created 936 samples
+created 940 samples
+created 944 samples
+created 948 samples
+created 952 samples
+created 956 samples
+created 960 samples
+created 964 samples
+created 968 samples
+created 972 samples
+created 976 samples
+created 980 samples
+created 984 samples
+created 988 samples
+created 992 samples
+created 996 samples
+created 1000 samples
+saving to /mnt/qb/berens/users/iilanchezian63/diffusion_model_samples_no_rotate_5_class_balancing_only_train/samples_1000x256x256x3.npz
+sampling complete

@@ -1,2 +1,3 @@
 scripts/image_train.py:90: DtypeWarning: Columns (16,41,42,49,50) have mixed types.Specify dtype option on import or set low_memory=False.
   main()
+slurmstepd: error: *** JOB 1781097 ON slurm-v100-5 CANCELLED AT 2022-09-10T20:41:52 DUE TO TIME LIMIT ***

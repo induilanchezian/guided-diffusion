@@ -6,8 +6,8 @@
 #SBATCH --time=3-00:00      # Runtime in D-HH:MM
 #SBATCH --gres=gpu:1      # optionally type and number of gpus
 #SBATCH --mem=32G         # Memory pool for all cores (see also --mem-per-cpu)
-#SBATCH --output=slurm_out/logs.out# File to which STDOUT will be written
-#SBATCH --error=slurm_out/errors.err # File to which STDERR will be written
+#SBATCH --output=slurm_out/sampling_logs.out# File to which STDOUT will be written
+#SBATCH --error=slurm_out/sampling_errors.err # File to which STDERR will be written
 # print info about current job
 scontrol show job $SLURM_JOB_ID
 
@@ -16,8 +16,8 @@ MODEL_FLAGS="--attention_resolutions 32,16,8 --class_cond False --diffusion_step
 DIFFUSION_FLAGS="--batch_size 4"
 DATA="/mnt/qb/eyepacs/"
 IMAGES_ID_FILE="/mnt/qb/eyepacs/data_processed/metadata/metadata_image_circular_crop.csv"
-MODEL_PATH="/mnt/qb/berens/users/iilanchezian63/diffusion_model_logs/try1/ema_0.9999_300000.pt"
-SAVEPATH="/mnt/qb/berens/users/iilanchezian63/diffusion_model_samples/"
+MODEL_PATH="/mnt/qb/berens/users/iilanchezian63/diffusion_model_logs/no_rotate_5_class_balancing_only_train/ema_0.9999_300000.pt"
+SAVEPATH="/mnt/qb/berens/users/iilanchezian63/diffusion_model_samples_no_rotate_5_class_balancing_only_train/"
 NUM_GPUS=1
 
 module load mpi/openmpi3-x86_64
