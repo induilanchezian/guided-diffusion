@@ -1,5 +1,6 @@
 import math
 import random
+import collections
 
 from PIL import Image
 import blobfile as bf
@@ -54,15 +55,16 @@ def load_data(
         if 'csv' in images_id_file:
             data_dir = '/mnt/qb/eyepacs/data_processed/images/'
             df = pd.read_csv(images_id_file, low_memory=False)
-            good_qual_desc = ['Good', 'Excellent']
-            df = df[df['session_image_quality'].isin(good_qual_desc)]
-            df =df[~df['diagnosis_image_dr_level'].isna()]
+            # good_qual_desc = ['Good', 'Excellent']
+            # df = df[df['session_image_quality'].isin(good_qual_desc)]
+            # df =df[~df['diagnosis_image_dr_level'].isna()]
             logger.log(f'Number of images: {df.shape[0]}')
             all_files = df['image_path']
             all_files = all_files.apply(lambda x: data_dir + x)
             all_files = all_files.tolist()
             labels = df['diagnosis_image_dr_level'].to_list()
-            labels = [int(x) for x in labels]
+            labels = [3 if l>2 else int(l) for l in labels]
+            logger.log(f'{collections.Counter(labels)}')
         else:
             all_files = pickle.load(images_id_file)
     classes = None
