@@ -53,17 +53,22 @@ def load_data(
         all_files = _list_image_files_recursively(data_dir)
     elif images_id_file:
         if 'csv' in images_id_file:
-            data_dir = '/mnt/qb/eyepacs/data_processed/images/'
+            data_dirs = {'eyepacs': '/mnt/qb/eyepacs/data_processed/images/',
+                         'benitez': '/mnt/qb/datasets/STAGING/berens/diffusion_model_data_mix/benitez/',
+                         'fgadr': '/mnt/qb/datasets/STAGING/berens/diffusion_model_data_mix/fgadr/'
+                        }
             df = pd.read_csv(images_id_file, low_memory=False)
             # good_qual_desc = ['Good', 'Excellent']
             # df = df[df['session_image_quality'].isin(good_qual_desc)]
             # df =df[~df['diagnosis_image_dr_level'].isna()]
             logger.log(f'Number of images: {df.shape[0]}')
-            all_files = df['image_path']
-            all_files = all_files.apply(lambda x: data_dir + x)
-            all_files = all_files.tolist()
-            labels = df['diagnosis_image_dr_level'].to_list()
-            labels = [3 if l>2 else int(l) for l in labels]
+
+            df['parent_dir'] = df['dataset'].apply(lambda x: data_dirs[x])
+            df['image_full_path'] = df['parent_dir']+df['image_path']
+
+            all_files = df['image_full_path'].tolist()
+            labels = df['label'].to_list()
+            # labels = [3 if l>2 else int(l) for l in labels]
             logger.log(f'{collections.Counter(labels)}')
         else:
             all_files = pickle.load(images_id_file)
