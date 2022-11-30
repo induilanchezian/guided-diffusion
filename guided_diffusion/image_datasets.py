@@ -83,7 +83,7 @@ def load_data(
                 data_dir = '/mnt/qb/berens/users/iilanchezian63/data/kermani_oct/CellData/OCT_preprocessed'
                 df['image_full_path'] = df['filename'].apply(lambda x: os.path.join(data_dir, x))
                 label_to_class = {'normal': 0, 'cnv': 1, 'drusen': 2, 'dme': 3}
-                df['class'] = df['label'].apply(lambda x: label_to_class(x))
+                df['class'] = df['label'].apply(lambda x: label_to_class[x])
 
                 all_files = df['image_full_path'].to_list()
                 labels = df['class'].to_list()
