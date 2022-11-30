@@ -1,6 +1,7 @@
 import math
 import random
 import collections
+import os
 
 from PIL import Image
 import blobfile as bf
