@@ -62,7 +62,7 @@ def load_data(
                 data_dir = '/mnt/qb/eyepacs/data_processed/images/'
                 df['image_full_path'] = df['image_path'].apply(lambda x: os.path.join(data_dir, x))
 
-                all_files = df['image_full_path'].tolist()
+                all_files = df['image_full_path'].to_list()
                 labels = df['diagnosis_image_dr_level'].to_list()
                 labels = [3 if l>2 else int(l) for l in labels]
                 logger.log(f'{collections.Counter(labels)}')
@@ -75,7 +75,7 @@ def load_data(
                 df['parent_dir'] = df['dataset'].apply(lambda x: data_dirs[x])
                 df['image_full_path'] = df['parent_dir']+df['image_path']
 
-                all_files = df['image_full_path'].tolist()
+                all_files = df['image_full_path'].to_list()
                 labels = df['label'].to_list()
                 logger.log(f'{collections.Counter(labels)}')
             elif dataset == 'oct':
@@ -83,6 +83,8 @@ def load_data(
                 df['image_full_path'] = df['filename'].apply(lambda x: os.path.join(data_dir, x))
                 label_to_class = {'normal': 0, 'cnv': 1, 'drusen': 2, 'dme': 3}
                 df['class'] = df['label'].apply(lambda x: label_to_class(x))
+
+                all_files = df['image_full_path'].to_list()
                 labels = df['class'].to_list()
                 logger.log(f'{collections.Counter(labels)}')
         else:
